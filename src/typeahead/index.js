@@ -2,10 +2,11 @@
  * @jsx React.DOM
  */
 
-var React = window.React || require('react/addons');
+var React = window.React || require('react');
 var TypeaheadSelector = require('./selector');
 var KeyEvent = require('../keyevent');
 var fuzzy = require('fuzzy');
+var classSet = require('react/lib/cx');
 
 /**
  * A "typeahead", an auto-completing text input
@@ -30,7 +31,7 @@ var Typeahead = React.createClass({
       customClasses: {},
       defaultValue: "",
       placeholder: "",
-      onKeyDown: function(event) { return },
+      onKeyDown: function(event) { return; },
       onOptionSelected: function(option) { }
     };
   },
@@ -116,13 +117,13 @@ var Typeahead = React.createClass({
   },
 
   _onEscape: function() {
-    this.refs.sel.setSelectionIndex(null)
+    this.refs.sel.setSelectionIndex(null);
   },
 
   _onTab: function(event) {
     var option = this.refs.sel.state.selection ?
       this.refs.sel.state.selection : this.state.visible[0];
-    this._onOptionSelected(option)
+    this._onOptionSelected(option);
   },
 
   eventMap: function(event) {
@@ -156,15 +157,15 @@ var Typeahead = React.createClass({
   },
 
   render: function() {
-    var inputClasses = {}
+    var inputClasses = {};
     inputClasses[this.props.customClasses.input] = !!this.props.customClasses.input;
-    var inputClassList = React.addons.classSet(inputClasses)
+    var inputClassList = classSet(inputClasses);
 
     var classes = {
       typeahead: true
-    }
+    };
     classes[this.props.className] = !!this.props.className;
-    var classList = React.addons.classSet(classes);
+    var classList = classSet(classes);
 
     return (
       <div className={classList}>

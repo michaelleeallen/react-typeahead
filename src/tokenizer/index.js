@@ -6,6 +6,7 @@ var React = window.React || require('react');
 var Token = require('./token');
 var KeyEvent = require('../keyevent');
 var Typeahead = require('../typeahead');
+var classSet = require('react/lib/cx');
 
 /**
  * A typeahead that, when an option is selected, instead of simply filling
@@ -44,16 +45,16 @@ var TypeaheadTokenizer = React.createClass({
   // TODO: Support initialized tokens
   //
   _renderTokens: function() {
-    var tokenClasses = {}
+    var tokenClasses = {};
     tokenClasses[this.props.customClasses.token] = !!this.props.customClasses.token;
-    var classList = React.addons.classSet(tokenClasses);
+    var classList = classSet(tokenClasses);
     var result = this.state.selected.map(function(selected) {
       return (
         <Token key={ selected } className={classList}
           onRemove={ this._removeTokenForValue }>
           { selected }
         </Token>
-      )
+      );
     }, this);
     return result;
   },
@@ -78,7 +79,7 @@ var TypeaheadTokenizer = React.createClass({
     // without a selection
     var entry = this.refs.typeahead.refs.entry.getDOMNode();
     if (entry.selectionStart == entry.selectionEnd &&
-        entry.selectionStart == 0) {
+        entry.selectionStart === 0) {
       this._removeTokenForValue(
         this.state.selected[this.state.selected.length - 1]);
       event.preventDefault();
@@ -108,9 +109,9 @@ var TypeaheadTokenizer = React.createClass({
   },
 
   render: function() {
-    var classes = {}
+    var classes = {};
     classes[this.props.customClasses.typeahead] = !!this.props.customClasses.typeahead;
-    var classList = React.addons.classSet(classes);
+    var classList = classSet(classes);
     return (
       <div>
         { this._renderTokens() }
@@ -123,7 +124,7 @@ var TypeaheadTokenizer = React.createClass({
           onOptionSelected={this._addTokenForValue}
           onKeyDown={this._onKeyDown} />
       </div>
-    )
+    );
   }
 });
 

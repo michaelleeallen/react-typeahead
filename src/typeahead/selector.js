@@ -2,8 +2,9 @@
  * @jsx React.DOM
  */
 
-var React = window.React || require('react/addons');
+var React = window.React || require('react');
 var TypeaheadOption = require('./option');
+var classSet = require('react/lib/cx');
 
 /**
  * Container for the options rendered as part of the autocompletion process
@@ -37,7 +38,7 @@ var TypeaheadSelector = React.createClass({
       "typeahead-selector": true
     };
     classes[this.props.customClasses.results] = this.props.customClasses.results;
-    var classList = React.addons.classSet(classes);
+    var classList = classSet(classes);
 
     var results = this.props.options.map(function(result, i) {
       return (
@@ -72,7 +73,7 @@ var TypeaheadSelector = React.createClass({
 
   _nav: function(delta) {
     if (!this.props.options) {
-      return; 
+      return;
     }
     var newIndex;
     if (this.state.selectionIndex === null) {
